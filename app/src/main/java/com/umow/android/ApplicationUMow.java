@@ -9,8 +9,8 @@ import com.parse.Parse;
  */
 public class ApplicationUMow extends Application {
 
-    private final String PARSE_APPLICATION_ID = "XRTzd1rnrqrA6p7dqpO2tAXaX4pdshsqXNneqsFV";
-    private final String PARSE_CLIENT_KEY = "gAn0uo7u4UULObOtZ6WVJjzk2wAX4bl31qI6QCRB";
+    private final String PARSE_APPLICATION_ID = "JefLhC0MeD4KlvLMN8849IEqr0hxAbLAzuTD9Oi9";
+    private final String PARSE_CLIENT_KEY = "UAEOvs60xLmmtdpxCvlRzqMZVWWrc4DGx3QX3vrq";
 
     @Override
     public void onCreate() {

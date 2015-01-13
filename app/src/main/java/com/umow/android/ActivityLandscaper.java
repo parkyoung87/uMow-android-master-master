@@ -9,13 +9,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
-
-import com.parse.FindCallback;
-import com.parse.ParseException;
-import com.parse.ParseQuery;
-import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +28,21 @@ public class ActivityLandscaper extends Activity_Base {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //getting data
+        Bundle bundle = getIntent().getExtras();
+        final String temp = bundle.getString("address");
+
+
+        Button btnconfirmlanscaper = (Button) findViewById(R.id.btnpicklandscaper);
+        btnconfirmlanscaper.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ActivityPayment.class);
+                //intent.putextra("address",temp);
+                startActivityForResult(intent, 0);
+            }
+        });
 
         // drawer
         drawer_items = new ArrayList<String>();
@@ -104,6 +114,8 @@ public class ActivityLandscaper extends Activity_Base {
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
 
+
+        /*
         ParseQuery<ParseUser> query = ParseUser.getQuery();
         query.findInBackground(new FindCallback<ParseUser>() {
             public void done(List<ParseUser> users, ParseException e) {
@@ -139,7 +151,7 @@ public class ActivityLandscaper extends Activity_Base {
                     // Something went wrong.
                 }
             }
-        });
+        }); */
     }
 
     @Override

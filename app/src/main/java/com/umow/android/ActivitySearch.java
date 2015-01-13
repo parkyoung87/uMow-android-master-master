@@ -158,6 +158,8 @@ public class ActivitySearch extends Activity_Base {
                 // test toast display
                 // UtilToast.showToast(ActivitySearch.this, queryText);
 
+                final String temp = queryText;
+
                 final ProgressDialog progressDialog = new ProgressDialog(ActivitySearch.this);
                 progressDialog.setMessage("Retrieving Landscapers Near You...");
                 progressDialog.show();
@@ -236,6 +238,7 @@ public class ActivitySearch extends Activity_Base {
 
                                                 // Start an intent
                                                 Intent intent = new Intent(ActivitySearch.this, ActivityLandscaper.class);
+                                                intent.putExtra("address",temp);
                                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                                 startActivity(intent);
                                             }
