@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.parse.ParseUser;
 import com.paypal.android.sdk.payments.PayPalAuthorization;
 import com.paypal.android.sdk.payments.PayPalConfiguration;
 import com.paypal.android.sdk.payments.PayPalFuturePaymentActivity;
@@ -28,10 +29,47 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+//date imports
+import java.util.Calendar;
+import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.widget.DatePicker;
+import android.widget.TextView;
+
+//parse imports for request and landscapers
+import com.parse.ParseException;
+import com.parse.ParseACL;
+import com.parse.ParseRole;
+import com.parse.ParseException;
+import com.parse.ParseUser;
+import com.parse.SignUpCallback;
+import com.umow.android.util.UtilToast;
+import com.parse.ParseObject;
+
+
 /**
  * Created by young on 11/25/14.
  */
 public class ActivityPayment extends Activity {
+
+    /*create new parse role:
+    Parse.
+    ParseACL roleACL = new ParseACL();
+    //roleACL.setPublicReadAccess(true);
+    ParseRole Requests = new ParseRole("Requests", roleACL);
+    //role.saveInBackground();*/
+
+    //date picking variables:
+    private DatePicker datePicker;
+    private Calendar calendar;
+    private TextView dateView;
+    private int year, month, day;
+    String date_Mow;
+
+    // address from previous activity
+
+    //String address = getIntent().getExtras().getString("address");
 
     private static final String TAG = "paymentExample";
     /**
@@ -66,9 +104,67 @@ public class ActivityPayment extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
 
+        //setting date parameters before paypal:
+        dateView = (TextView) findViewById(R.id.textView3);
+        calendar = Calendar.getInstance();
+        year = calendar.get(Calendar.YEAR);
+        month = calendar.get(Calendar.MONTH);
+        day = calendar.get(Calendar.DAY_OF_MONTH);
+        showDate(year, month+1, day);
+
         Intent intent = new Intent(this, PayPalService.class);
         intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
         startService(intent);
+    }
+
+    // date methods for storing lawn mowing dates currently set at single date appointments:
+    @SuppressWarnings("deprecation")
+    public void setDate(View view) {
+        showDialog(999);
+        Toast.makeText(getApplicationContext(), "ca", Toast.LENGTH_SHORT)
+                .show();
+    }
+
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        // TODO Auto-generated method stub
+        if (id == 999) {
+            return new DatePickerDialog(this, myDateListener, year, month, day);
+        }
+        return null;
+    }
+
+    private DatePickerDialog.OnDateSetListener myDateListener
+            = new DatePickerDialog.OnDateSetListener() {
+
+        @Override
+        public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
+            // TODO Auto-generated method stub
+            // arg1 = year
+            // arg2 = month
+            // arg3 = day
+            showDate(arg1, arg2+1, arg3);
+        }
+    };
+
+     private void showDate(int year, int month, int day) {
+         dateView.setText(new StringBuilder().append(day).append("/")
+                .append(month).append("/").append(year));
+        date_Mow = day +("/")+ month +("/")+year;
+
+
+        // setting parse database for request
+           //TODO: need to do the parse database for requests..: probally call method here
+
+    }
+
+    private void job(){
+        ParseObject requesting = new ParseObject("Requesting");
+        String address = getIntent().getExtras().getString("address");
+        requesting.put("Date",date_Mow);
+        requesting.put("Address",address);
+        requesting.saveInBackground();
+
     }
     public void onBuyPressed(View pressed) {
         /*
@@ -89,6 +185,9 @@ public class ActivityPayment extends Activity {
         Intent intent = new Intent(ActivityPayment.this, PaymentActivity.class);
 
         intent.putExtra(PaymentActivity.EXTRA_PAYMENT, thingToBuy);
+
+        //starting storage
+        job();
 
         startActivityForResult(intent, REQUEST_CODE_PAYMENT);
     }

@@ -20,27 +20,69 @@
         android:weightSum="1">
 
         <TextView
-            android:layout_width="280dp"
-            android:layout_height="wrap_content"
-            android:text="Lawn Mowing &amp; Edging"
-            android:id="@+id/textView2"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="0.17"
-            android:layout_marginTop="30dp"
-            android:textColor="@color/white"
-            android:textSize="25dp" />
+        android:id="@+id/textView4"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:text="Lawn Mowing &amp; Edging"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.17"
+        android:layout_marginTop="30dp"
+        android:textColor="@color/white"
+        android:textSize="25dp"
+        />
 
-        <DatePicker
+
+        <TextView
+            android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/datePicker"
-            android:layout_weight="0.17" />
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_below ="@id/textView4"
+            android:layout_marginTop="25dp"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:text="@string/date_label_set"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:layout_marginTop="70dp"
+            android:onClick="setDate"
+            android:text="@string/date_button_set" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/button1"
+            android:layout_marginTop="66dp"
+            android:layout_toLeftOf="@+id/button1"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:text="@string/date_view_set"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/button1"
+            android:layout_below="@+id/textView2"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:layout_marginTop="72dp"
+            android:text="@string/date_selected"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
 
         <Button
             android:id="@+id/buyItBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="20dp"
             android:onClick="onBuyPressed"
             android:text="Request to Mow"
             android:textColor="@color/white" />

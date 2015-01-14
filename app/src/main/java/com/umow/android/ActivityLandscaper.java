@@ -30,16 +30,16 @@ public class ActivityLandscaper extends Activity_Base {
         super.onCreate(savedInstanceState);
 
         //getting data
-        Bundle bundle = getIntent().getExtras();
-        final String temp = bundle.getString("address");
-
+        //Bundle bundle = getIntent().getExtras();
+        //final String temp = bundle.getString("address");
+        final String temp = getIntent().getExtras().getString("address");
 
         Button btnconfirmlanscaper = (Button) findViewById(R.id.btnpicklandscaper);
         btnconfirmlanscaper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ActivityPayment.class);
-                //intent.putextra("address",temp);
+                intent.putExtra("address",temp);
                 startActivityForResult(intent, 0);
             }
         });
